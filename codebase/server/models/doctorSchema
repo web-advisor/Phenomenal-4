@@ -61,7 +61,7 @@ const doctorSchema = new mongoose.Schema({
   status: {
     type: Boolean
   },
-  LastAppointment: {
+  lastAppointment: {
     type: mongoose.Schema.Types.Long,
     required: true,
   },
