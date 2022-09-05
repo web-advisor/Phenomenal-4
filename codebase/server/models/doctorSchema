@@ -55,10 +55,10 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Spec: {
+  spec: {
     type: String,
   },
-  Status: {
+  status: {
     type: Boolean
   },
   LastAppointment: {

@@ -17,7 +17,7 @@ const patientSchema = new mongoose.Schema({
     lowercase: true,
     unique: true
   },
-  Address: {
+  address: {
     type: String,
     required: true,
   },
