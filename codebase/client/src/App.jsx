@@ -11,6 +11,7 @@ import Home from './Components/HomeComp/Home'
 import DoctorDash from './Components/Dashboard/DoctorDash';
 import Footer from './Components/HomeComp/Footer';
 import AddDoctor from './Components/Login components/AddDoctor';
+import AdminDashboard from './Components/Dashboard/AdminDashboard';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
     <Route element={<PSignup/>} path="/psignup" exact='true'/>
     <Route element={<AdminLogin/>} path="/adminlogin" exact='true'/>
     <Route element={<DoctorDash/>} path="/dashboard" exact='true'/>
+    <Route element={<AdminDashboard/>} path="/admin/dashboard" exact='true'/>
     </Routes>
     <Footer/>
     </div> )
