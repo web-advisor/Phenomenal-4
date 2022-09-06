@@ -26,9 +26,10 @@ function PLogin() {
       if(answerData?.apiStatus==="SUCCESS"){
         localStorage.setItem("patientToken",answerData.data.jwtToken)
         localStorage.setItem("name",answerData.data.name)
+      //  localStorage.setItem("loc",answerData.data)
         Pstatus=1;
        navigate('/dashboard');
-       console.log(answerData.data.name);
+     //  console.log(answerData.data.name);
        
       
   }
