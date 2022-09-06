@@ -112,6 +112,30 @@ const createDoctor = async (req, res, next) => {
     }
 }
 
+const doctorLogin = async (req, res, next) => {
+    const { email, password } = req.body;
+    if (checkNotNull(email) && checkNotNull(password)) {
+        try {
+            const existingDoctor = await Doctor.findOne({ email });
+            if (existingDoctor) {
+                const passwordCheck = await bcrypt.compare(password, existingDoctor.password);
+                if (passwordCheck) {
+                    const token = createTokenDoctor(existingDoctor);
+                    await Doctor.updateOne({ email }, { jwtToken: token }).exec();
+                    return next(response(200, "", { ...existingDoctor._doc, jwtToken : token }));
+                } else {
+                    return next(response(400, "INCORRECT_PASSWORD"));
+                }
+            } else {
+                return next(response(404, "NO USER FOUND"));
+            }
+        } catch (error) {
+            return next(response(500, error.message));
+        }
+    } else {
+        return next(response(400, "BAD_REQUEST"));
+    }
+}
 
 const updateDoctor = async (req, res, next) => {
     const id = req.user.id;
@@ -209,5 +233,6 @@ const deleteDoctor = async (req, res, next) => {
 module.exports = {
     createDoctor,
     updateDoctor,
-    deleteDoctor
+    deleteDoctor,
+    doctorLogin
 }

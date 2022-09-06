@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const opencage = require('opencage-api-client');
+const jwt = require("jsonwebtoken");
 const { response } = require("../../utils/response");
 const Patient = require("../../models/patientSchema");
 const { checkNotNull, checkAccess } = require("../../utils/check");
@@ -40,6 +40,33 @@ const createPatient = async (req, res, next) => {
         return next(response(500, error.message));
     }
 }
+
+
+const patientLogin = async (req, res, next) => {
+    const { email, password } = req.body;
+    if (checkNotNull(email) && checkNotNull(password)) {
+        try {
+            const existingPatient = await Patient.findOne({ email });
+            if (existingPatient) {
+                const passwordCheck = await bcrypt.compare(password, existingPatient.password);
+                if (passwordCheck) {
+                    const token = createTokenPatient(existingPatient);
+                    await Patient.updateOne({ email }, { jwtToken: token }).exec();
+                    return next(response(200, "", { ...existingPatient._doc, jwtToken : token }));
+                } else {
+                    return next(response(400, "INCORRECT_PASSWORD"));
+                }
+            } else {
+                return next(response(404, "NO USER FOUND"));
+            }
+        } catch (error) {
+            return next(response(500, error.message));
+        }
+    } else {
+        return next(response(400, "BAD_REQUEST"));
+    }
+}
+
 
 
 const updatePatient = async (req, res, next) => {
@@ -138,5 +165,6 @@ const deletePatient = async (req, res, next) => {
 module.exports = {
     createPatient,
     updatePatient,
-    deletePatient
+    deletePatient,
+    patientLogin
 }

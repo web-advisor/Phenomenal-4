@@ -3,7 +3,8 @@ const {
     getAdmin,
     createAdmin,
     updateAdmin,
-    deleteAdmin
+    deleteAdmin,
+    adminLogin
 } = require("./adminController");   
 
 
@@ -13,4 +14,5 @@ module.exports = {
     createAdmin,
     updateAdmin,
     deleteAdmin,
+    adminLogin
 };

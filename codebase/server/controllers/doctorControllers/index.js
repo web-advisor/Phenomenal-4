@@ -1,11 +1,13 @@
 const {
     createDoctor,
     updateDoctor,
-    deleteDoctor
+    deleteDoctor,
+    doctorLogin
 } = require("./doctorController");
 
 module.exports = {
     createDoctor,
     updateDoctor,
-    deleteDoctor
+    deleteDoctor,
+    doctorLogin
 };

@@ -73,6 +73,33 @@ const createAdmin = async (req, res, next) => {
 }
 
 
+const adminLogin = async (req, res, next) => {
+    const { email, password } = req.body;
+    if (checkNotNull(email) && checkNotNull(password)) {
+        try {
+            const existing = await Admin.find({ $or: [{ email }, { username : email }] });
+            if (existing.length == 1) {
+                const existingAdmin = existing[0];
+                const passwordCheck = await bcrypt.compare(password, existingAdmin.password);
+                if (passwordCheck) {
+                    const token = createTokenAdmin(existingAdmin);
+                    await Admin.updateOne({ email }, { jwtToken: token }).exec();
+                    return next(response(200, "", { ...existingAdmin._doc, jwtToken : token }));
+                } else {
+                    return next(response(400, "INCORRECT_PASSWORD"));
+                }
+            } else {
+                return next(response(404, "NO USER FOUND"));
+            }
+        } catch (error) {
+            return next(response(500, error.message));
+        }
+    } else {
+        return next(response(400, "BAD_REQUEST"));
+    }
+}
+
+
 const updateAdmin = async (req, res, next) => {
     const { id } = req.params;
     if (checkNotNull(id) && checkAccess(req.user, "updateAdmin")) {
@@ -117,5 +144,6 @@ module.exports = {
     getAdmin,
     createAdmin,
     updateAdmin,
-    deleteAdmin
+    deleteAdmin,
+    adminLogin
 }

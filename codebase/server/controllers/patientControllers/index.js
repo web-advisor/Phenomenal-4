@@ -1,7 +1,9 @@
 const {
-    createPatient
+    createPatient,
+    patientLogin
 } = require("./patientController");
 
 module.exports = {
-    createPatient
+    createPatient,
+    patientLogin
 };
