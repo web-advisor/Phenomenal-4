@@ -80,12 +80,13 @@ const createDoctor = async (req, res, next) => {
                         fees,
                         address,
                         location,
+                        isVerified,
                         profilePic: profilePic !== undefined ? profilePic : "",
                         spec: spec !== undefined ? spec : "",
                         status: status !== undefined ? status : false,
                         password: hash,
                         clinicTime: { openTime, closeTime },
-                        lastAppointment: clinicTime.openTime,
+                        lastAppointment: openTime,
                     });
                     const doctorInfo = await newDoctor.save();
                     if (isVerified) {
