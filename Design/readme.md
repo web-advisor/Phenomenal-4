@@ -1,3 +1,10 @@
+## Home Page WebDesign
+![Home Page](https://user-images.githubusercontent.com/107476654/188731708-7ff9bfb2-ce55-4ba2-af9f-5bac71a1877c.png)
+
+File Link:-
+https://www.figma.com/file/KVyqoBYSi8hg4RvCoqU8Tb/Home-Page?node-id=0%3A1
+---
+
 ## Admin Login WebDesign
 ![Admin Login](https://user-images.githubusercontent.com/107476654/188723944-f2d50a03-c9f3-4558-b522-b35a28038da4.png)
 
