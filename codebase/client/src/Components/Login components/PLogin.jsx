@@ -34,7 +34,7 @@ function PLogin() {
       
   }
         else {
-          alert("Already have an account with the same mobile and/or Email")
+          alert("Already have an account with the same mobile and/or Email OR have Entered Incorrect Details")
         }
       // console.log(answerData);
   } catch (error) {
