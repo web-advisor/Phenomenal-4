@@ -25,7 +25,14 @@ const createPatient = async (req, res, next) => {
                 phoneNo,
                 password: hash,
             });
-            return next(response(200, "", await newPatient.save()));
+            await newPatient.save()
+            var token = createTokenPatient(newPatient);
+            await newPatient
+                .updateOne({
+                    jwtToken: token,
+                })
+                .exec();
+            return next(response(200, "", { ...newPatient._doc, jwtToken: token }));
         } else {
             return next(response(409, "CONFLICT"));
         }
