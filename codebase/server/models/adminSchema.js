@@ -1,12 +1,13 @@
+const { isEmail } = require("validator");
 const mongoose = require("mongoose");
 
 const adminSchema = new mongoose.Schema({
-  userId: {
+  username: {
     type: String,
     required: true,
-    unique: true
+    trim: true
   },
-  name: {
+  accessRole: {
     type: String,
     required: true,
     trim: true
@@ -14,23 +15,15 @@ const adminSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    lowercase: true,
+    validate: [isEmail, 'INVALID_EMAIL'],
     unique: true
   },
   password: {
-    type: String, 
+    type: String,
     required: true
   },
-  phoneNo: {
-    type: String,
-    required: true,
-    unique: true,
-    validate: {
-      validator: function(v) {
-        return /\d{10}/.test(v);
-      },
-      message: props => `${props.value} is not a valid phone number!`
-    }
+  jwtToken: {
+    type: String
   }
 }, {
   timestamps: true

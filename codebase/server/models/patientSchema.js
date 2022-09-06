@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const patientSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-    unique: true
-  },
   name: {
     type: String,
     required: true,
@@ -16,15 +11,6 @@ const patientSchema = new mongoose.Schema({
     required: true,
     lowercase: true,
     unique: true
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  pinCode: {
-    type: Number,
-    min: [100000, "Zip code too short"],
-    max: 999999
   },
   password: {
     type: String, 
