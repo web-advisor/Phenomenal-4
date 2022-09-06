@@ -22,9 +22,21 @@ const createTokenDoctor = (doctor, validity) => {
     );
 };
 
+const createTokenPatient = (patient, validity) => {
+    return jwt.sign(
+        {
+            // exp: Math.floor(Date.now() / 1000) + 60 * 60,
+            id: patient._id,
+            role: "patient",
+        },
+        process.env.SECRET_KEY
+    );
+};
+
 
 
 module.exports = {
     createTokenAdmin,
     createTokenDoctor,
+    createTokenPatient
 };
