@@ -2,12 +2,23 @@ const {
     createDoctor,
     updateDoctor,
     deleteDoctor,
-    doctorLogin
+    doctorLogin,
+    
 } = require("./doctorController");
 
+const {
+    listDoctors,
+    getDoctor,
+    listDoctorsNearby,
+    listDoctorsBySpec
+} = require("./getDoctor")
 module.exports = {
     createDoctor,
     updateDoctor,
     deleteDoctor,
-    doctorLogin
-};
+    doctorLogin,
+    listDoctors,
+    getDoctor,
+    listDoctorsNearby,
+    listDoctorsBySpec
+};  

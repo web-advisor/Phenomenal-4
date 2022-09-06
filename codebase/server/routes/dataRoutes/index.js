@@ -6,7 +6,7 @@ const {
     getDoctor,
     listDoctorsNearby,
     listDoctorsBySpec
-} = require("../../controllers/doctorControllers");
+} = require("../../controllers/doctorControllers/getDoctor");
 
 router.get("/doctors/list", listDoctors);
 router.get("/doctors/get/:slug", getDoctor);
