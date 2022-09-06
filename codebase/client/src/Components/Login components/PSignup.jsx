@@ -3,9 +3,12 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import { AiOutlineMobile } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom'
+//import {newStatus} from '../HomeComp/Navbar'
 
-
+let status = 0; 
 function PSignup(props) {
+  const navigate = useNavigate();
   const [data,setdata]=useState(
     {
         name:'',
@@ -14,6 +17,10 @@ function PSignup(props) {
         password:"",
     }
 )
+//useEffect(() => {
+//  status=newStatus
+  // eslint-disable-next-line
+//}, [newStatus])
 const changeHandler = (e)=>{
   const {name,value} = e.target;
   setdata((preValue)=>{
@@ -24,28 +31,35 @@ const changeHandler = (e)=>{
   }) 
   console.log(data);
 }
-const SubmitHandler = (e)=>{
+
+const SubmitHandler = async (e)=>{
   e.preventDefault();
-  if(data.password===data.cpassword)
-  console.log(data);
-  else
-   alert("Enter correct Password")
-  
-  if(data.password===data.cpassword && (data.role!== "")){
-     // props.history.push('/login')
-      //  axios.post('https://api.saaspect.com/user/register',data)
-      //  .then((response) =>{
-      //         console.log(response);
-      //     })
-      //     .catch((error)=>{
-      //         console.log(error);
-      //     })
-  }
-  else{
-      // alert('Enter correct password')
-  }
-   
+try {
+    const response = await fetch(`http://localhost:5000/auth/signup/patient`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+            data
+        )
+    });
+    const answerData = (await response.json());
+    if(answerData?.apiStatus==="SUCCESS"){
+      localStorage.setItem("patientToken",answerData.data.jwtToken)
+      status=1;
+      navigate('/dashboard');}
+      else {
+        alert("Already have an account with the same mobile and/or Email")
+      }
+    console.log(answerData);
+} catch (error) {
+    console.log(error)
+   // alert("Already have an account with the mobile number")
 }
+}
+
   return (
     <div className="container form-container text-center">
         
@@ -87,3 +101,4 @@ const SubmitHandler = (e)=>{
 }
 
 export default PSignup
+export {status}

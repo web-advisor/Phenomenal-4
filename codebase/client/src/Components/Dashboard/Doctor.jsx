@@ -10,7 +10,7 @@ function Doctor() {
                 <div className="col-10 mx-auto background">
                 <div className="row background">
                   <div className='col-lg-2 background'>
-                    <img src="https://max-website20-images.s3.ap-south-1.amazonaws.com/Dr_Puneet_sq_3be6907e0c.jpg" className='drPic' alt="xyz" srcset="" />
+                    <img src="https://max-website20-images.s3.ap-south-1.amazonaws.com/Dr_Puneet_sq_3be6907e0c.jpg" className='drPic' alt="xyz" srcSet="" />
                   </div>
                     <div className="background col-lg-7 col-md-8 pt-1 pt-lg-0 order-2 order-lg-1 d-flex justify-centent-center flex-column mt-2">
                         <lable className='mt-2 background'>Dr. Aman Gupta</lable>

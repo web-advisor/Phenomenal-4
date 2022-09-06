@@ -125,7 +125,7 @@ input,.loginHeader,
     right: 0;
   }
   .footerLink {
-    background-color: whitesmoke !important;
+    background-color: hsl(0, 0%, 96%) !important;
     color: rgba(168, 163, 163, 0.945);
     font-size: 0.8rem;
   }

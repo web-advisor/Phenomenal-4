@@ -1,22 +1,75 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { NavLink,useNavigate } from 'react-router-dom'
-
-
+import { status } from '../Login components/PSignup';
+import {Pstatus} from '../Login components/PLogin'
+//let newStatus = 1;
 
 function Navbar() {
+ 
   const navigate = useNavigate();
-  const [isdrLogin, setisdrLogin] = useState(1)
-  const [ispLogin, setPlogin] = useState(0)
+  const [isdrLogin, setisdrLogin] = useState(0)
+ // const [ispLogin, setPlogin] = useState(0)
   const [isadminLogin, setAdminLogin] = useState(0)
+  
+const name = localStorage.getItem("name")
+
+
+  const [ispLogin, setPlogin] = useState(localStorage.getItem('patientToken'));
+  useEffect(() => {
+    function checkUserData() {
+      const item = JSON.parse(localStorage.getItem("patientToken"));
+
+      if (item) {
+        setPlogin(item);
+      }
+    }
+
+    window.addEventListener("storage", () => {
+      checkUserData();
+    });
+
+    return () => {
+      window.removeEventListener("storage", checkUserData);
+    };
+  }, [localStorage.getItem("patientToken")]);
+
+
+
+
+
+
+
+  // useEffect(() => {
+   
+  //   // console.log();
+  //   if(localStorage.getItem('patientToken')){
+  //     setPlogin(1);
+  //     setAdminLogin(0)
+  //     setisdrLogin(0)
+  //   }else{
+  //     setPlogin(0);
+  //     setAdminLogin(0)
+  //     setisdrLogin(0)
+  //   }
+    // if(status===1){
+    // setPlogin(1);
+    // setAdminLogin(0)
+    // setisdrLogin(0)}
+    // eslint-disable-next-line
+  // }, [])
+  
   console.log()
   const logOut = ()=>{
     setAdminLogin(0);
     setPlogin(0);
     setisdrLogin(0); 
+    localStorage.clear();
+   // newStatus=0
     navigate('/');
+
   }
 
- if(ispLogin===1 && isadminLogin===0 && isdrLogin===0 ){
+ if(ispLogin && isadminLogin===0 && isdrLogin===0 ){
     
   return(
     <div>
@@ -33,7 +86,7 @@ function Navbar() {
     <ul className="navbar-nav ">
     <ul className="navbar-nav m-auto">
              <li className="nav-item">
-             <p className='nav-link'><strong className='text-danger'>Patient FName</strong></p>
+             <p className='nav-link'><strong className='text-danger'>{name}</strong></p>
            </li>
              <li className="nav-item">
              <NavLink className={({isActive}) => (isActive ? "active-style nav-link" : 'nav-link')}  to= '/dashboard' >Add Appointment</NavLink>
@@ -55,7 +108,7 @@ function Navbar() {
   )
  }
 
-else if( ispLogin===0 && isadminLogin===0 && isdrLogin===1){
+else if( !ispLogin && isadminLogin===0 && isdrLogin===1){
   return(
     <div className="container-fluid sticky-top nav_bg nav_bg1">
     <div className="row">
@@ -87,7 +140,7 @@ else if( ispLogin===0 && isadminLogin===0 && isdrLogin===1){
 </div>
   )
 }
-else if( ispLogin===0 && isadminLogin===1 && isdrLogin===0){
+else if( !ispLogin && isadminLogin===1 && isdrLogin===0){
   
   return(
     <div className="container-fluid sticky-top nav_bg nav_bg1">
@@ -124,7 +177,7 @@ else if( ispLogin===0 && isadminLogin===1 && isdrLogin===0){
 </div>
   )
 }
-else if(ispLogin===0 && isadminLogin===0 && isdrLogin===0){
+else if(!ispLogin && isadminLogin===0 && isdrLogin===0){
   
   return(
     <div className="container-fluid sticky-top nav_bg nav_bg1">
@@ -175,3 +228,4 @@ else{
 }
 
 export default Navbar
+//export {newStatus}

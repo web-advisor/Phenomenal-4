@@ -1,7 +1,7 @@
-import React,{ useState  } from 'react'
+import React,{ useState ,  } from 'react'
 import { AiOutlineUser } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
-
+let newData;
 function CommonForm(props) {
     const [data,setdata]=useState(
         {      
@@ -9,6 +9,8 @@ function CommonForm(props) {
             password:"",
         }
     )
+
+    
     const changeHandler = (e)=>{
       const {name,value} = e.target;
     
@@ -18,34 +20,17 @@ function CommonForm(props) {
               [name] : value,
           }
       })
-    }
-    const SubmitHandler = (e)=>{
-      e.preventDefault();
-      if(data.password===data.cpassword)
-      console.log(data);
-      else
-       alert("Enter correct Password")
       
-      if(data.password===data.cpassword && (data.role!== "")){
-         // props.history.push('/login')
-          //  axios.post('https://api.saaspect.com/user/register',data)
-          //  .then((response) =>{
-          //         console.log(response);
-          //     })
-          //     .catch((error)=>{
-          //         console.log(error);
-          //     })
-      }
-      else{
-          // alert('Enter correct password')
-      }
     }
+    newData=data;
+    const HandleSubmit = props.function;
+   
   return (
     <div className="container form-container text-center">
         
     <div>
     <h1 className='loginHeader'>{props.Name} Login</h1>
-    <form className="form pt-5" onSubmit={SubmitHandler} >
+    <form className="form pt-5" onSubmit={HandleSubmit} >
 
         <div className= "input_field p-3">
         <label><AiOutlineUser/></label>
@@ -73,3 +58,4 @@ function CommonForm(props) {
 }
 
 export default CommonForm
+export {newData}

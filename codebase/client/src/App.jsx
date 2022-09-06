@@ -15,9 +15,11 @@ import AdminDashboard from './Components/Dashboard/AdminDashboard';
 import DoctorDash from './Components/Dashboard/DoctorDash';
 
 function App() {
+  
+
   return (
     <div>
-    <Navbar></Navbar>
+    <Navbar/>
 
     <Routes>
     <Route element={<Home/>} path='/' exact="true"/>
