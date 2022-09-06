@@ -1,0 +1,31 @@
+.DashboardContainer{
+    margin: 25px auto !important;
+    background-color: white !important;
+    padding: 50px 50px !important;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.drPic{
+    margin-top: 1rem; 
+    height:6rem;
+  width: 6rem;
+  border-radius: 50%;
+}
+.ApointBtn {
+    margin: 20% 50% 0% 0%;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: 1px;
+    border: 2px solid #3498db;
+    border-radius: 50px;
+    display: inline-block;
+    padding: 10px 30px;
+    text-decoration: none;
+    
+  }
+  .ApointBtn:hover {
+    background-color: #3498db;
+    color: #fff;
+  }
+  .background{
+    background-color: #fff ;
+  }
