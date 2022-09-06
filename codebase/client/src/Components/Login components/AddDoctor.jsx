@@ -2,12 +2,13 @@ import React,{useState} from 'react'
 import { AiOutlineUser } from 'react-icons/ai';
 import { BsHouseDoor } from 'react-icons/bs';
 import { GiNotebook } from 'react-icons/gi';
-import { AiOutlineFileImage } from 'react-icons/ai';
+//import { AiOutlineFileImage } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 
 function AddDoctor() {
-  
+  const navigate = useNavigate();
     const [data,setdata]=useState(
         {
             name:'',
@@ -40,9 +41,16 @@ function AddDoctor() {
             )
         });
         const answerData = (await response.json());
+        if(answerData?.apiStatus==="SUCCESS"){
+          navigate('/admin/dashboard');}
+          else {
+            alert("Already have an account with the same mobile and/or Email")
+          }
         console.log(answerData);
+      //  navigate('/admin/dashboard');
     } catch (error) {
         console.log(error)
+       // alert("Already have an account with the mobile number")
     }
   }
 
@@ -185,11 +193,7 @@ function AddDoctor() {
         <input type="number" required value={data.fees} name="fees" id='fees' placeholder="Enter Fee Amount" autoComplete="off" onChange={changeHandler} />
         </div>
 
-        <div className= "input_field p-3">
-        <label><AiOutlineFileImage/></label>
-        <input type="file"  value={data.profilePic} name="profilePic" id='profilePic'  placeholder="" autoComplete="off" 
-        onChange={changeHandler}/>
-        </div>
+        
        
 
         <br/>
@@ -203,3 +207,12 @@ function AddDoctor() {
 }
 
 export default AddDoctor
+
+
+
+
+// <div className= "input_field p-3">
+//         <label><AiOutlineFileImage/></label>
+//         <input type="file"  value={data.profilePic} name="profilePic" id='profilePic'  placeholder="" autoComplete="off" 
+//         onChange={changeHandler}/>
+//         </div>

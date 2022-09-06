@@ -10,8 +10,8 @@ function Home() {
                      <div className="col-10 mx-auto ">
                      <div className="row ">
                          <div className=" col-md-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex justify-centent-center flex-column mt-5">
-                             <h1 className='mt-5'>Aman <strong className="brand-name"> Gupta</strong></h1><br/>
-                             <h2 className="my-3">We are the team of talented developer making Websites</h2>
+                             <h1 className='mt-5'>Search Doctor, <strong className="brand-name"> Make an Appointment</strong></h1><br/>
+                             <h2 className="my-3">Discover the best doctor's clinic nearest to you</h2>
                              
                          </div>
                          <div className='col-lg-6 order-1 order-lg-2 header-img mt-5'>

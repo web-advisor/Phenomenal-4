@@ -8,10 +8,11 @@ import PSignup from './Components/Login components/PSignup'
 import DrLogin from './Components/Login components/Drlogin.jsx'
 import AdminLogin from './Components/Login components/AdminLogin.jsx'
 import Home from './Components/HomeComp/Home'
-import DoctorDash from './Components/Dashboard/DoctorDash';
+import PatientDash from './Components/Dashboard/PatientDash';
 import Footer from './Components/HomeComp/Footer';
 import AddDoctor from './Components/Login components/AddDoctor';
 import AdminDashboard from './Components/Dashboard/AdminDashboard';
+import DoctorDash from './Components/Dashboard/DoctorDash';
 
 function App() {
   return (
@@ -25,8 +26,9 @@ function App() {
     <Route element={<DrLogin/>} path="/drlogin" exact='true'/>
     <Route element={<PSignup/>} path="/psignup" exact='true'/>
     <Route element={<AdminLogin/>} path="/adminlogin" exact='true'/>
-    <Route element={<DoctorDash/>} path="/dashboard" exact='true'/>
+    <Route element={<PatientDash/>} path="/dashboard" exact='true'/>
     <Route element={<AdminDashboard/>} path="/admin/dashboard" exact='true'/>
+    <Route element={<DoctorDash/>} path="/drdashboard" exact='true'/>
     </Routes>
     <Footer/>
     </div> )

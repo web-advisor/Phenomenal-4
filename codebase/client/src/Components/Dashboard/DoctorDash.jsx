@@ -1,17 +1,15 @@
 import React from 'react'
-
-import './Dashboard.css'
-import Doctor from './Doctor'
+import AppointList from './AppointList'
 
 function DoctorDash() {
   return (
     <div className="container DashboardContainer text-center">
         
     <div className=''>
-    <h1 className='loginHeader pb-5 '> Book Appointment</h1>
+    <h1 className='loginHeader pb-5 '> My Appointments</h1>
 
-<Doctor className='m-2'/>
-<Doctor/>
+    
+    <AppointList/><AppointList/>
       
     </div>
     </div>

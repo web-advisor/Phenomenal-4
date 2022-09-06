@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-function Doctor() {
+function DrList() {
   return (
     <div className='background my-2 '>
     <section  className="d-flex align-item-centre  m-2">
@@ -19,9 +19,15 @@ function Doctor() {
                         <lable className='mt-1 background mb-2'>Available time : 2:00pm</lable>
                     </div>
                     <div className='background col-lg-3 order-1 order-lg-2 header-img '>
-                      <ul className='mt-2 background'>
-                        <ol className='mb-2 background'>
-                           <NavLink className="background ApointBtn " to="/appointment"> Appointment</NavLink>
+                      <ul className='mt-1 background'>
+                        <ol className=' background'>
+                           <NavLink className="background listBtn " to="/appointment"> Update</NavLink>
+                        </ol>
+                        <ol className='background'>
+                           <NavLink className="background listBtn " to="/appointment"> Remove</NavLink>
+                        </ol>
+                        <ol className=' background'>
+                           <NavLink className="background listBtn " to="/appointment"> Inactive</NavLink>
                         </ol>
                       </ul>
                     </div>
@@ -34,4 +40,4 @@ function Doctor() {
   )
 }
 
-export default Doctor
+export default DrList
