@@ -9,9 +9,9 @@ const listAppointments = async (req, res, next) => {
     if (checkAccess(req.user, "listAppointments")) {
         try {
             if (req.user.role === "doctor") {
-                return next(response(200, "", await Appointment.find({ doctorId: req.user.id })));
+                return next(response(200, "", await Appointment.find({ doctorId: req.user._id })));
             }
-            return next(response(200, "", await Appointment.find({ patientId: req.user.id })));
+            return next(response(200, "", await Appointment.find({ patientId: req.user._id })));
         } catch (error) {
             return next(response(500, error.message));
         }
@@ -25,7 +25,14 @@ const getAppointment = async (req, res, next) => {
     const { id } = req.params;
     if (checkNotNull(id) && checkAccess(req.user, "getAppointment", id)) {
         try {
-            return next(response(200, "", await Appointment.findById(id)));
+            const checkAppointment = await Appointment.findById(id);
+            if (!checkAppointment) {
+                return next(response(404, "APPOINTMENT_NOT_FOUND"));
+            } else if (checkAppointment.doctorId == req.user._id || checkAppointment.patientId == req.user._id || req.user.role == "admin" || req.user.role == "superadmin") {
+                return next(response(200, "", await Appointment.findById(id)));
+            } else {
+                return next(response(403, "FORBIDDEN"));
+            }
         } catch (error) {
             return next(response(404, error.message));
         }
@@ -50,15 +57,15 @@ const createAppointment = async (req, res, next) => {
                     const latest = timing(doctorData?.lastAppointment);
                     const appointmentTime = computeAppointment(curr, lower, upper, latest);
                     var max = 0;
-                    await Doctor.findOne({ tokenNo: 1 }).sort(last_mod, 1).run(function (err, doc) {
-                        max = doc.last_mod;
-                    });
+                    const maxToken = await Appointment.find().sort({ tokenNo: -1 }).limit(1);
+                    if (checkNotNull(maxToken)) max = maxToken[0].tokenNo;
                     const newAppointment = new Appointment({
-                        patientId: req.user.id,
                         doctorId: doctorData._id,
-                        tokenNo : max+1,
-                        startTime : appointmentTime
+                        patientId: req.user._id,
+                        tokenNo: max + 1,
+                        startTime: appointmentTime
                     });
+                    await Doctor.updateOne({ slug }, { $set: { lastAppointment: appointmentTime } });
                     return next(response(200, "", await newAppointment.save()));
                 } else {
                     return next(response(404, "DOCTOR_NOT_FOUND"));
@@ -73,12 +80,11 @@ const createAppointment = async (req, res, next) => {
             if (checkNotNull(startTime)) {
                 try {
                     var max = 0;
-                    await Doctor.findOne({ tokenNo: 1 }).sort(last_mod, 1).run(function (err, doc) {
-                        max = doc.last_mod;
-                    });
-                    const newAppointment = new Appointment({ 
-                        tokenNo : max+1,
-                        doctorId : req.user.id,
+                    const maxToken = await Appointment.find().sort({ tokenNo: -1 }).limit(1);
+                    if (maxToken.length > 0) max = maxToken[0].tokenNo;
+                    const newAppointment = new Appointment({
+                        doctorId: req.user._id,
+                        tokenNo: max + 1,
                         startTime
                     });
                     return next(response(200, "", await newAppointment.save()));
@@ -99,17 +105,16 @@ const createAppointment = async (req, res, next) => {
 const updateAppointment = async (req, res, next) => {
     const { id } = req.params;
     if (checkNotNull(id) && checkAccess(req.user, "updateAppointment")) {
-        const { username, email, accessRole } = req.body;
+        const { status } = req.body;
         try {
-            const updateData = {};
-            if (username !== undefined) updateData.username = username;
-            if (email !== undefined) updateData.email = email;
-            if (accessRole !== undefined) {
-                updateData.accessRole = accessRole;
-                const appointmentData = await Appointment.findById(id);
-                createTokenAppointment(appointmentData, accessRole);
+            const checkAppointment = await Appointment.findById(id);
+            if (checkAppointment) {
+                const updateData = {};
+                if (status !== undefined) updateData.status = status;
+                return next(response(200, "", await Appointment.findByIdAndUpdate(id, updateData)));
+            } else {
+                return next(response(404, "APPOINTMENT_NOT_FOUND"));
             }
-            return next(response(200, "", await Appointment.findByIdAndUpdate(id, updateData)));
         } catch (error) {
             return next(response(404, error.message));
         }

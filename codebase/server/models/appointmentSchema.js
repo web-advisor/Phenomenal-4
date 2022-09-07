@@ -11,7 +11,7 @@ const appointmentSchema = new mongoose.Schema({
     trim: true
   },
   startTime: {
-    type: Number,
+    type: String,
     // required: true,
   },
   tokenNo: {

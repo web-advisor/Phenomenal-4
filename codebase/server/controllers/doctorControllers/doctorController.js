@@ -122,7 +122,7 @@ const doctorLogin = async (req, res, next) => {
                 if (passwordCheck) {
                     const token = createTokenDoctor(existingDoctor);
                     await Doctor.updateOne({ email }, { jwtToken: token }).exec();
-                    return next(response(200, "", { ...existingDoctor._doc, jwtToken : token }));
+                    return next(response(200, "", { ...existingDoctor._doc, jwtToken: token }));
                 } else {
                     return next(response(400, "INCORRECT_PASSWORD"));
                 }
@@ -138,8 +138,9 @@ const doctorLogin = async (req, res, next) => {
 }
 
 const updateDoctor = async (req, res, next) => {
-    const id = req.user.id;
-    if (checkNotNull(id) && checkAccess(req.user, "updateDoctor")) {
+    const id = req.user._id;
+    const { slug } = req.params;
+    if ((checkNotNull(id) || checkNotNull(slug)) && checkAccess(req.user, "updateDoctor", id)) {
         const { name, clinic, profilePic, phoneNo, address, spec, openTime, closeTime, status } = req.body;
         try {
             const updateData = {};
@@ -192,13 +193,16 @@ const updateDoctor = async (req, res, next) => {
                         errorMessage = error.message;
                     });
 
-                if (errorMessage !== "") {
+                if (errorMessage === "") {
                     updateData.address = address;
                     updateData.location = location;
                 } else {
                     return next(response(404, errorMessage));
                 }
-            } d
+            }
+            if(checkNotNull(slug)){
+                return next(response(200, "", await Doctor.findOneAndUpdate({ slug }, updateData)))
+            }
             return next(response(200, "", await Doctor.findByIdAndUpdate(id, updateData)));
         } catch (error) {
             return next(response(404, error.message));
@@ -212,15 +216,15 @@ const updateDoctor = async (req, res, next) => {
 
 
 const deleteDoctor = async (req, res, next) => {
-    var id = "";
-    if (req.params && req.params.id) {
-        id = req.params.id;
-    } else if (req.user && req.user.id) {
-        id = req.user.id;
-    }
+    const id = req.user._id;
+    const { slug } = req.params;
     if (checkNotNull(id) && checkAccess(req.user, "deleteDoctor", id)) {
         try {
-            return next(response(200, "", await Doctor.findByIdAndDelete(id)));
+            if (checkNotNull(slug)) {
+                return next(response(200, "", await Doctor.deleteOne({ slug })));
+            }else{
+                return next(response(200, "", await Doctor.findByIdAndDelete(id)));
+            }
         } catch (error) {
             return next(response(404, error.message));
         }

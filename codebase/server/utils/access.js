@@ -106,7 +106,7 @@ const patient = {
 
     createAppointment : true,
     listAppointments : true,
-    getAppointment : false,
+    getAppointment : true,
     updateAppointment : false, 
     deleteAppointment : true,
 };

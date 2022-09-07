@@ -34,7 +34,20 @@ const computeMinutes = () => {
 
 
 const computeAppointment = (curr, lower, upper, latest) => {
-    var input 
+    var time = 0;
+    if(curr > latest){
+        time = curr;
+    }else if(curr >= upper){
+        time = lower;
+    }else if(time < lower){
+        time = lower;
+    }
+    time += 15;
+    var timestring = "";
+    let min = time % 60;
+    let hour = (time-min) / 60;
+    timestring = hour + ":" + min;
+    return timestring;
 }
 
 

@@ -13,6 +13,6 @@ const {
 router.post("/create", passport.authenticate("verifyToken", { session: false }), createAppointment);
 router.get("/list", passport.authenticate("verifyToken", { session: false }), listAppointments);
 router.get("/get/:id", passport.authenticate("verifyToken", { session: false }), getAppointment);
-router.get("/update/:id", passport.authenticate("verifyToken", { session: false }), updateAppointment);
+router.patch("/update/:id", passport.authenticate("verifyToken", { session: false }), updateAppointment);
 
 module.exports = router;

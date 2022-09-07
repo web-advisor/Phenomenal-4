@@ -12,9 +12,9 @@ const {
 } = require("../../controllers/doctorControllers");
 
 router.post("/create", passport.authenticate("verifyToken", { session: false }), createDoctor);
-router.patch("/update/:id", passport.authenticate("verifyToken", { session: false }), updateDoctor);
+router.patch("/update/:slug", passport.authenticate("verifyToken", { session: false }), updateDoctor);
 router.patch("/verify/:slug", passport.authenticate("verifyToken", { session: false }), verifyDoctor);
 router.patch("/remove/:slug", passport.authenticate("verifyToken", { session: false }), removeDoctor);
-router.delete("/delete/:id", passport.authenticate("verifyToken", { session: false }), deleteDoctor);
+router.delete("/delete/:slug", passport.authenticate("verifyToken", { session: false }), deleteDoctor);
 
 module.exports = router;

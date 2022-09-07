@@ -70,8 +70,8 @@ const patientLogin = async (req, res, next) => {
 
 
 const updatePatient = async (req, res, next) => {
-    const id = req.user.id;
-    if (checkNotNull(id) && checkAccess(req.user, "updatePatient")) {
+    const id = req.user._id;
+    if (checkNotNull(id) && checkAccess(req.user, "updatePatient", id)) {
         const { name, phoneNo } = req.body;
         try {
             const updateData = {};
@@ -90,12 +90,7 @@ const updatePatient = async (req, res, next) => {
 
 
 const deletePatient = async (req, res, next) => {
-    var id = "";
-    if (req.params && req.params.id) {
-        id = req.params.id;
-    } else if (req.user && req.user.id) {
-        id = req.user.id;
-    }
+    const id = req.user._id;
     if (checkNotNull(id) && checkAccess(req.user, "deletePatient", id)) {
         try {
             return next(response(200, "", await Patient.findByIdAndDelete(id)));

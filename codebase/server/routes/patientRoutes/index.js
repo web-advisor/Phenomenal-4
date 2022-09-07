@@ -8,7 +8,7 @@ const {
     deletePatient
 } = require("../../controllers/patientControllers");
 
-router.patch("/update/:id", passport.authenticate("verifyToken", { session: false }), updatePatient);
-router.delete("/delete/:id", passport.authenticate("verifyToken", { session: false }), deletePatient);
+router.patch("/update", passport.authenticate("verifyToken", { session: false }), updatePatient);
+router.delete("/delete", passport.authenticate("verifyToken", { session: false }), deletePatient);
 
 module.exports = router;

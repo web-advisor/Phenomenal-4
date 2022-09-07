@@ -108,10 +108,6 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tokenNo : {
-        type: Number,
-        default : 0
-    },
     password: {
         type: String,
         required: true
