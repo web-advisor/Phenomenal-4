@@ -39,7 +39,7 @@ function PatientDash() {
     .then((response) => {
       const Sdata = response.data.data
       setcard(Sdata)
-        console.log(Sdata[0].name);
+        console.log(Sdata[0].slug);
     })
     .catch((error) => {
       console.log(error);
@@ -73,7 +73,8 @@ function PatientDash() {
           location = {val.address}
           clinic = {val.clinic}
           time1 = {val.clinicTime.openTime}
-          time2 = {val.clinicTime.closeTime}  
+          time2 = {val.clinicTime.closeTime}
+          slug={val.slug}  
         />)
     }
 
