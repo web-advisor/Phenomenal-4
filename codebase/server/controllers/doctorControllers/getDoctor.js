@@ -1,5 +1,7 @@
 const { response } = require("../../utils/response");
+const opencage = require('opencage-api-client');
 const Doctor = require("../../models/doctorSchema");
+
 
 const listDoctors = async (req, res, next) => {
   Doctor.find().then(DoctorList => {
@@ -33,15 +35,43 @@ const getDoctor = async (req, res, next) => {
 }
 
 const listDoctorsNearby = async (req, res, next) => {
-  let obj = {
-    "location": {
-      $near: {
-        $geometry: {
-          type: "Point",
-          coordinates: [req.query.lat, req.query.lng]
-        },
-      }
-    }
+        var location = {};
+        var errorMessage = "";
+
+        // ---- OpenCage GeoLocation API ---- //
+        await opencage
+            .geocode({ q: req.query.address })
+            .then((data) => {
+                if (data.results.length > 0) {
+                    const place = data.results[0];
+                    console.log(place.formatted);
+                    console.log(place.geometry);
+                    console.log(place.annotations.timezone.name);
+                    location = {
+                      lat: place.geometry.lat,
+                      lng: place.geometry.lng,
+                    }
+                } else {
+                    console.log('Status', data.status.message);
+                    console.log('total_results', data.total_results);
+                    errorMessage = "UNABLE_TO_LOCATE_ADDRESS";
+                }
+            })
+            .catch((error) => {
+                errorMessage = error.message;
+            });
+            if(errorMessage!=""){
+              return next(response(400, errorMessage) )
+            }
+        let obj = {
+          "location": {
+            $near: {
+              $geometry: {
+                type: "Point",
+                coordinates: [location.lat, location.lng]
+              },
+            }
+          }
   }
 
   Doctor.find(obj).then(doctorList => {

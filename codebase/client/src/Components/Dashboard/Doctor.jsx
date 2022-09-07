@@ -12,7 +12,8 @@ function Doctor(props) {
                  
                     <div className="background col-lg-8 col-md-8 pt-1 pt-lg-0 order-2 order-lg-1 d-flex justify-centent-center flex-column mt-2">
                         <lable className='mt-2 background'>Dr. {props.name}</lable>
-                        <lable className='mt-1 background'>Clinic Location: {props.location}</lable>
+                        <lable className='mt-1 background'>Clinic : {props.clinic}</lable>
+                        <lable className='mt-1 background'>Location: {props.location}</lable>
                         <lable className='mt-1 background'>Education: {props.education}</lable>
                         <lable className='mt-1 background mb-2'>Available time : {props.time1}-{props.time2}</lable>
                     </div>
