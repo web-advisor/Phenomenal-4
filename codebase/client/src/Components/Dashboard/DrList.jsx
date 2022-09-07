@@ -30,18 +30,14 @@ useEffect(() => {
       });
       const answerData = (await response.json());
       if(answerData?.apiStatus==="SUCCESS"){
-       // if(isActive==="Inactive")
       setactive("Active")
-      //  navigate('/admin/dashboard');
     }
         else {
           alert("Already have an account with the same mobile and/or Email")
         }
       console.log(answerData);
-    //  navigate('/admin/dashboard');
   } catch (error) {
       console.log(error)
-     // alert("Already have an account with the mobile number")
   }
 }
   const handler2 =  async (e)=>{
@@ -59,8 +55,6 @@ useEffect(() => {
       });
       const answerData = (await response.json());
       if(answerData?.apiStatus==="SUCCESS"){
-      //  navigate('/admin/dashboard');
-    //  if(isActive==="Active")
       setactive("Inactive")
     }
         else {
@@ -68,10 +62,9 @@ useEffect(() => {
         }
         console.log(`handler2 ${isActive}`);
       console.log(answerData);
-    //  navigate('/admin/dashboard');
+    
   } catch (error) {
       console.log(error)
-     // alert("Already have an account with the mobile number")
   }
 }
   return (
@@ -94,7 +87,7 @@ useEffect(() => {
                            <button className="background listBtn " > Update</button>
                         </ol>
                         <ol className='background'>
-                           <button className="background listBtn " > Remove</button>
+                           <button className="background listBtn " >Delete</button>
                         </ol>
                         {
                           console.log(isActive)

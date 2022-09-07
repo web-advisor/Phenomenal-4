@@ -9,7 +9,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [isdrLogin, setisdrLogin] = useState(0)
  // const [ispLogin, setPlogin] = useState(0)
-  const [isadminLogin, setAdminLogin] = useState(0)
+  const [isadminLogin, setAdminLogin] = useState(1)
   
 const name = localStorage.getItem("name")
 
@@ -34,29 +34,6 @@ const name = localStorage.getItem("name")
   }, [localStorage.getItem("patientToken")]);
 
 
-
-
-
-
-
-  // useEffect(() => {
-   
-  //   // console.log();
-  //   if(localStorage.getItem('patientToken')){
-  //     setPlogin(1);
-  //     setAdminLogin(0)
-  //     setisdrLogin(0)
-  //   }else{
-  //     setPlogin(0);
-  //     setAdminLogin(0)
-  //     setisdrLogin(0)
-  //   }
-    // if(status===1){
-    // setPlogin(1);
-    // setAdminLogin(0)
-    // setisdrLogin(0)}
-    // eslint-disable-next-line
-  // }, [])
   
   console.log()
   const logOut = ()=>{
