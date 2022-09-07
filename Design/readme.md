@@ -31,6 +31,14 @@ https://www.figma.com/file/4DoZtZRcXyqaCh4iMaJ0hr/Untitled?node-id=1%3A2
 
 File Link:-
 https://www.figma.com/file/tLewRrzbsvPXiFUqTK1ULA/Untitled?node-id=0%3A1
+---
+
+## Add Doctor From Admin Side WebDesign
+![Add Doctor From Admin Side](https://user-images.githubusercontent.com/107476654/188780742-d2435c22-448e-4c70-a63f-58e022387234.png)
+
+File Link:-
+https://www.figma.com/file/Dqyszh0rxIAuN25Mxih95N/Add-Doctor-From-Admin-Side
+---
 
 ## Doctor Appointment WebDesign
 ![Doctor Appointment](https://user-images.githubusercontent.com/107476654/188769845-9c73e20d-73c2-4c15-9b1d-fa96d01d459f.png)
