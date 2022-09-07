@@ -10,7 +10,8 @@ const {
     listDoctors,
     getDoctor,
     listDoctorsNearby,
-    listDoctorsBySpec
+    listDoctorsBySpec,
+    listDoctorsVerified
 } = require("./getDoctor");
 
 const {
@@ -24,6 +25,7 @@ module.exports = {
     deleteDoctor,
     doctorLogin,
     listDoctors,
+    listDoctorsVerified,
     getDoctor,
     listDoctorsNearby,
     listDoctorsBySpec,

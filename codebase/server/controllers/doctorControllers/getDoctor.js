@@ -2,7 +2,17 @@ const { response } = require("../../utils/response");
 const Doctor = require("../../models/doctorSchema");
 
 const listDoctors = async (req, res, next) => {
-  Doctor.find({"isVerified": true}).then(DoctorList => {
+  Doctor.find().then(DoctorList => {
+    doctorList = DoctorList;
+    return next(response(200, "", doctorList));
+  }).catch(e => {
+    console.log(`Error fetching`);
+    return next(404, e);
+  });
+}
+
+const listDoctorsVerified = async (req, res, next) => {
+  Doctor.find({ "isVerified": true }).then(DoctorList => {
     doctorList = DoctorList;
     return next(response(200, "", doctorList));
   }).catch(e => {
@@ -13,7 +23,7 @@ const listDoctors = async (req, res, next) => {
 
 const getDoctor = async (req, res, next) => {
   let slug = req.params.slug;
-  Doctor.findOne({"slug": slug}).then(Doctor => {
+  Doctor.findOne({ "slug": slug }).then(Doctor => {
     doctor = Doctor;
     next(response(200, "", doctor));
   }).catch(e => {
@@ -27,8 +37,8 @@ const listDoctorsNearby = async (req, res, next) => {
     "location": {
       $near: {
         $geometry: {
-           type: "Point" ,
-           coordinates: [ req.query.lat , req.query.lng ]
+          type: "Point",
+          coordinates: [req.query.lat, req.query.lng]
         },
       }
     }
@@ -45,7 +55,7 @@ const listDoctorsNearby = async (req, res, next) => {
 
 const listDoctorsBySpec = async (req, res, next) => {
   let spec = req.params.spec;
-  Doctor.find({"spec":spec}).then(doctorList => {
+  Doctor.find({ "spec": spec }).then(doctorList => {
     DoctorList = doctorList;
     next(response(200, "", DoctorList));
   }).catch(e => {
@@ -56,6 +66,7 @@ const listDoctorsBySpec = async (req, res, next) => {
 
 module.exports = {
   listDoctors,
+  listDoctorsVerified,
   getDoctor,
   listDoctorsNearby,
   listDoctorsBySpec
