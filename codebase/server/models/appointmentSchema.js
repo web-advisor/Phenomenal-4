@@ -17,7 +17,6 @@ const appointmentSchema = new mongoose.Schema({
   tokenNo: {
     type: Number,
     required: true,
-    unique : true
   },
   status: {
     type: String,

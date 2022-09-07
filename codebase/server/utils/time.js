@@ -3,20 +3,20 @@ const timing = (timestring) => {
     let minutes = "";
     let l = timestring.length;
     let found = false;
-    for(let i=0; i<l; i++){
-        if(timestring[i] >= '0' && timestring[i] <= '9'){
-            if(!found){
+    for (let i = 0; i < l; i++) {
+        if (timestring[i] >= '0' && timestring[i] <= '9') {
+            if (!found) {
                 hours += timestring[i];
-            }else{
+            } else {
                 minutes += timestring[i];
             }
-        }else if(timestring[i] == ':'){
+        } else if (timestring[i] == ':') {
             found = true;
         }
     }
 
-    if(!found) return 0;
-    else{
+    if (!found) return 0;
+    else {
         let h = parseInt(hours);
         let m = parseInt(minutes);
         const time = h * 60 + m;
@@ -26,8 +26,8 @@ const timing = (timestring) => {
 
 const computeMinutes = () => {
     var now = new Date();
-    var hours = now.getHours;
-    var minutes = now.getMinutes;
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
     const time = hours * 60 + minutes;
     return time;
 }
@@ -35,17 +35,20 @@ const computeMinutes = () => {
 
 const computeAppointment = (curr, lower, upper, latest) => {
     var time = 0;
-    if(curr > latest){
-        time = curr;
-        time += 15;
-    }else if(curr >= upper){
+    if (curr < lower) {
         time = lower;
-    }else if(time < lower){
+    } else if (curr > upper) {
         time = lower;
+    } else {
+        if (curr + 10 < latest + 15)
+            time = latest + 15;
+        else    
+            time = curr + 10;
     }
+    console.log(time);
     var timestring = "";
-    let min = time % 60;
-    let hour = (time-min) / 60;
+    let min = time % 60 < 10 ? "0" + (time % 60) : time % 60;
+    let hour = (time - min) / 60;
     timestring = hour + ":" + min;
     return timestring;
 }

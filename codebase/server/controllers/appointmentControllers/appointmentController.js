@@ -56,9 +56,10 @@ const createAppointment = async (req, res, next) => {
                     const upper = timing(doctorData?.clinicTime?.closeTime);
                     const latest = timing(doctorData?.lastAppointment);
                     const appointmentTime = computeAppointment(curr, lower, upper, latest);
+                    console.log(curr, lower, upper, latest, appointmentTime);
                     var max = 0;
-                    const maxToken = await Appointment.find().sort({ tokenNo: -1 }).limit(1);
-                    if (checkNotNull(maxToken)) max = maxToken[0].tokenNo;
+                    const maxToken = await Appointment.find({ doctorId: doctorData?._id }).sort({ tokenNo: -1 }).limit(1);
+                    if (maxToken.length > 0) max = maxToken[0].tokenNo;
                     const newAppointment = new Appointment({
                         doctorId: doctorData._id,
                         patientId: req.user._id,
@@ -80,13 +81,14 @@ const createAppointment = async (req, res, next) => {
             if (checkNotNull(startTime)) {
                 try {
                     var max = 0;
-                    const maxToken = await Appointment.find().sort({ tokenNo: -1 }).limit(1);
+                    const maxToken = await Appointment.find({ doctorId: doctorData?._id }).sort({ tokenNo: -1 }).limit(1);
                     if (maxToken.length > 0) max = maxToken[0].tokenNo;
                     const newAppointment = new Appointment({
                         doctorId: req.user._id,
                         tokenNo: max + 1,
                         startTime
                     });
+                    await Doctor.updateOne({ slug }, { $set: { lastAppointment: appointmentTime } });
                     return next(response(200, "", await newAppointment.save()));
                 } catch (error) {
                     return next(response(500, error.message));
