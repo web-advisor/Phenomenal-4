@@ -31,3 +31,10 @@ https://www.figma.com/file/4DoZtZRcXyqaCh4iMaJ0hr/Untitled?node-id=1%3A2
 
 File Link:-
 https://www.figma.com/file/tLewRrzbsvPXiFUqTK1ULA/Untitled?node-id=0%3A1
+
+## Doctor Appointment WebDesign
+![Doctor Appointment](https://user-images.githubusercontent.com/107476654/188769845-9c73e20d-73c2-4c15-9b1d-fa96d01d459f.png)
+
+File LInk:-
+https://www.figma.com/file/xnywwujnLmcm6KKuC9u5CH/Doctor-Appointment?node-id=0%3A1
+---
