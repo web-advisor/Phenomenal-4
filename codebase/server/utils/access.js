@@ -76,7 +76,7 @@ const doctor  = {
     updatePatient : true, 
     deletePatient : false,
 
-    createAppointment : false,
+    createAppointment : true,
     listAppointments : true,
     getAppointment : true,
     updateAppointment : true, 
@@ -105,7 +105,7 @@ const patient = {
     deletePatient : false,
 
     createAppointment : true,
-    listAppointments : false,
+    listAppointments : true,
     getAppointment : false,
     updateAppointment : false, 
     deleteAppointment : true,

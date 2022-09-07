@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const appointmentSchema = new mongoose.Schema({
-  appointmentId: {
-    type: String,
-    required: true,
-    unique: true
-  },
   doctorId: {
     type: String,
     required: true,
@@ -13,20 +8,20 @@ const appointmentSchema = new mongoose.Schema({
   },
   patientId: {
     type: String,
-    required: true,
     trim: true
   },
   startTime: {
-    type: mongoose.Schema.Types.Long,
-    required: true,
+    type: Number,
+    // required: true,
   },
   tokenNo: {
     type: Number,
     required: true,
+    unique : true
   },
-  appointmentStatus: {
+  status: {
     type: String,
-    required: true,
+    default : "Pending"
   }
 }, {
   timestamps: true

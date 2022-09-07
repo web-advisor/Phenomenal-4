@@ -13,7 +13,7 @@ const patientSchema = new mongoose.Schema({
     unique: true
   },
   password: {
-    type: String, 
+    type: String,
     required: true
   },
   phoneNo: {
@@ -21,11 +21,14 @@ const patientSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         return /\d{10}/.test(v);
       },
       message: props => `${props.value} is not a valid phone number!`
     }
+  },
+  jwtToken: {
+    type: String
   }
 }, {
   timestamps: true

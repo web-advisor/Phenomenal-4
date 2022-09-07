@@ -13,7 +13,6 @@ const checkAccess = (user, action, id = "") => {
 }
 
 
-
 module.exports = {
     checkNotNull,
     checkAccess,

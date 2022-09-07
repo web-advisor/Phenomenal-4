@@ -72,65 +72,11 @@ const patientLogin = async (req, res, next) => {
 const updatePatient = async (req, res, next) => {
     const id = req.user.id;
     if (checkNotNull(id) && checkAccess(req.user, "updatePatient")) {
-        const { name, clinic, profilePic, phoneNo, address, spec, openTime, closeTime, status } = req.body;
+        const { name, phoneNo } = req.body;
         try {
             const updateData = {};
-            if (name !== undefined || clinic !== undefined) {
-                if (name !== undefined) updateData.name = name;
-                else updateData.name = req.user.name;
-                if (clinic !== undefined) updateData.clinic = clinic;
-                else updateData.clinic = req.user.clinic;
-
-                var PatientSlug = slugify(updateData.clinic + "-" + updateData.name);
-                const sameSlugPatient = await Patient.find({ name, clinic });
-                if (sameSlugPatient) {
-                    let counter = sameSlugPatient + 1;
-                    PatientSlug += "-" + counter;
-                }
-                updateData.slug = PatientSlug;
-            }
-            if (profilePic !== undefined) updateData.profilePic = profilePic;
+            if (name !== undefined) updateData.name = name;
             if (phoneNo !== undefined) updateData.phoneNo = phoneNo;
-            if (spec !== undefined) updateData.spec = spec;
-            if (status !== undefined) updateData.status = status;
-            if (openTime !== undefined) updateData.clinicTime.openTime = openTime;
-            if (closeTime !== undefined) updateData.clinicTime.closeTime = closeTime;
-            if (address !== undefined) {
-                var location = {};
-                var errorMessage = "";
-                // ---- OpenCage GeoLocation API ---- //
-                await opencage
-                    .geocode({ q: address })
-                    .then((data) => {
-                        if (data.results.length > 0) {
-                            const place = data.results[0];
-                            console.log(place.formatted);
-                            console.log(place.geometry);
-                            console.log(place.annotations.timezone.name);
-                            location = {
-                                type: "Point",
-                                coordinates: [
-                                    place.geometry.lat,
-                                    place.geometry.lng
-                                ]
-                            }
-                        } else {
-                            console.log('Status', data.status.message);
-                            console.log('total_results', data.total_results);
-                            errorMessage = "UNABLE_TO_LOCATE_ADDRESS";
-                        }
-                    })
-                    .catch((error) => {
-                        errorMessage = error.message;
-                    });
-
-                if (errorMessage !== "") {
-                    updateData.address = address;
-                    updateData.location = location;
-                } else {
-                    return next(response(404, errorMessage));
-                }
-            } d
             return next(response(200, "", await Patient.findByIdAndUpdate(id, updateData)));
         } catch (error) {
             return next(response(404, error.message));

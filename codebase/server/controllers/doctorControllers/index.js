@@ -11,7 +11,13 @@ const {
     getDoctor,
     listDoctorsNearby,
     listDoctorsBySpec
-} = require("./getDoctor")
+} = require("./getDoctor");
+
+const {
+    verifyDoctor,
+    removeDoctor
+} = require("./accessController");
+
 module.exports = {
     createDoctor,
     updateDoctor,
@@ -20,5 +26,7 @@ module.exports = {
     listDoctors,
     getDoctor,
     listDoctorsNearby,
-    listDoctorsBySpec
+    listDoctorsBySpec,
+    verifyDoctor,
+    removeDoctor
 };  
