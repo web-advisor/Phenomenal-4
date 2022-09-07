@@ -9,7 +9,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [isdrLogin, setisdrLogin] = useState(0)
  // const [ispLogin, setPlogin] = useState(0)
-  const [isadminLogin, setAdminLogin] = useState(1)
+  const [isadminLogin, setAdminLogin] = useState(0)
   
 const name = localStorage.getItem("name")
 

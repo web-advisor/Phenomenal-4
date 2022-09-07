@@ -17,7 +17,7 @@ function Footer() {
                         <label htmlFor="" className='footerLink ms-3'>Hashtags</label>
                         <label htmlFor="" className='footerLink ms-3'>Locations</label>
                         <label htmlFor="" className='footerLink ms-3'>English</label>
-                        <label htmlFor="" className='footerLink  ms-3'>© 2022 Phenominal 5</label>
+                        <label htmlFor="" className='footerLink  ms-3'>© 2022 Phenominal 4</label>
                     </div>
                 </div>
             </div>
