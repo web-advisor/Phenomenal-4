@@ -1,7 +1,20 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 
 
 function DrList(props) {
+  console.log(props.isVerified);
+  const [isActive, setactive] = useState("a")
+
+useEffect(() => {
+  if(props?.isVerified){
+    setactive("Active")
+  }else{
+    setactive("Inactive")
+  }
+
+  
+ }, [])
+
   const handler1 = async (e)=>{
     e.preventDefault();
   const adminToken = `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTY3OWEyODIwYjJmMDljZmVmYjhlZSIsInJvbGUiOiJzdXBlcmFkbWluIiwiaWF0IjoxNjYyNDE3MzE0fQ.7cokUDmBiK_2SoseXBsEYDSDxmTbeGuHz68WFRtPMsI`;
@@ -17,6 +30,8 @@ function DrList(props) {
       });
       const answerData = (await response.json());
       if(answerData?.apiStatus==="SUCCESS"){
+       // if(isActive==="Inactive")
+      setactive("Active")
       //  navigate('/admin/dashboard');
     }
         else {
@@ -45,10 +60,13 @@ function DrList(props) {
       const answerData = (await response.json());
       if(answerData?.apiStatus==="SUCCESS"){
       //  navigate('/admin/dashboard');
+    //  if(isActive==="Active")
+      setactive("Inactive")
     }
         else {
           alert("Already have an account with the same mobile and/or Email")
         }
+        console.log(`handler2 ${isActive}`);
       console.log(answerData);
     //  navigate('/admin/dashboard');
   } catch (error) {
@@ -73,14 +91,24 @@ function DrList(props) {
                     <div className='background col-lg-4 order-1 order-lg-2 header-img '>
                       <ul className='mt-1 background'>
                         <ol className=' background'>
-                           <button className="background listBtn " onClick={handler1}> Verify</button>
+                           <button className="background listBtn " > Update</button>
                         </ol>
                         <ol className='background'>
-                           <button className="background listBtn " onClick={handler2}> Remove</button>
+                           <button className="background listBtn " > Remove</button>
                         </ol>
+                        {
+                          console.log(isActive)
+                        }{ 
+                          isActive==="Active" ? 
+                          <ol className=' background'>
+                          <button className="background listBtn " onClick={handler2} > {isActive}</button>
+                       </ol>
+                        :
                         <ol className=' background'>
-                           <button className="background listBtn " > Inactive</button>
-                        </ol>
+                        <button className="background listBtn " onClick={handler1}> {isActive}</button>
+                     </ol>
+                        }
+                        
                       </ul>
                     </div>
                     </div>

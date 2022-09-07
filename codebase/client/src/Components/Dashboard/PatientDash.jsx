@@ -7,7 +7,7 @@ function PatientDash() {
   const [card, setcard] = useState([])
  
  useEffect(() => {
-  let url = `http://localhost:5000/data/doctors/list`
+  let url = `http://localhost:5000/data/doctors/list/verified`
   axios.get(url, { mode: 'no-cors', redirect: 'follow' })
 
     .then((response) => {

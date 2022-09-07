@@ -41,6 +41,8 @@ function AdminDashboard() {
           time1 = {val.clinicTime.openTime}
           time2 = {val.clinicTime.closeTime} 
           slug={val.slug} 
+          isVerified={val.isVerified}
+
         />)
     }
 
