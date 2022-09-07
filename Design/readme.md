@@ -35,6 +35,12 @@ https://www.figma.com/file/tLewRrzbsvPXiFUqTK1ULA/Untitled?node-id=0%3A1
 ## Doctor Appointment WebDesign
 ![Doctor Appointment](https://user-images.githubusercontent.com/107476654/188769845-9c73e20d-73c2-4c15-9b1d-fa96d01d459f.png)
 
-File LInk:-
+File Link:-
 https://www.figma.com/file/xnywwujnLmcm6KKuC9u5CH/Doctor-Appointment?node-id=0%3A1
 ---
+
+## Admin Doctor List WebDesign
+![Admin Doctor List](https://user-images.githubusercontent.com/107476654/188774783-07f67a28-e2f7-44c7-bf6a-339303795810.png)
+
+File Link:-
+https://www.figma.com/file/lVRnP1PUCB6IEZT8Bws5XS/Admin-Doctor-List?node-id=0%3A1
