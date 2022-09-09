@@ -1,25 +1,38 @@
 import React, {useState,useEffect} from 'react'
-
+import axios from 'axios';
 
 function DrList(props) {
   console.log(props.isVerified);
   const [isActive, setactive] = useState("a")
+  
+  const deleteItem = () => {
+    let url = `https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/delete/${props.slug}`
+      axios.delete(url, { mode: 'no-cors', redirect: 'follow',
+    headers:{authorization :`JWT ${localStorage.getItem('adminToken')}`}
+    }) 
+    
+        .then((response) => {
+          props.functionSetDeleted()
+            console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+  }
 
 useEffect(() => {
   if(props?.isVerified){
     setactive("Active")
   }else{
     setactive("Inactive")
-  }
-
-  
- }, [])
+  } 
+ }, [props?.isVerified])
 
   const handler1 = async (e)=>{
     e.preventDefault();
   const adminToken = `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTY3OWEyODIwYjJmMDljZmVmYjhlZSIsInJvbGUiOiJzdXBlcmFkbWluIiwiaWF0IjoxNjYyNDE3MzE0fQ.7cokUDmBiK_2SoseXBsEYDSDxmTbeGuHz68WFRtPMsI`;
   try {
-      const response = await fetch(`http://localhost:5000/admin/manage/doctor/verify/${props.slug}`, {
+      const response = await fetch(`https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/verify/${props.slug}`, {
           method: "PATCH",
           headers: {
               Accept: "application/json",
@@ -44,7 +57,7 @@ useEffect(() => {
     e.preventDefault();
   const adminToken = `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTY3OWEyODIwYjJmMDljZmVmYjhlZSIsInJvbGUiOiJzdXBlcmFkbWluIiwiaWF0IjoxNjYyNDE3MzE0fQ.7cokUDmBiK_2SoseXBsEYDSDxmTbeGuHz68WFRtPMsI`;
   try {
-      const response = await fetch(`http://localhost:5000/admin/manage/doctor/remove/${props.slug}`, {
+      const response = await fetch(`https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/remove/${props.slug}`, {
           method: "PATCH",
           headers: {
               Accept: "application/json",
@@ -87,7 +100,7 @@ useEffect(() => {
                            <button className="background listBtn " > Update</button>
                         </ol>
                         <ol className='background'>
-                           <button className="background listBtn " >Delete</button>
+                           <button className="background listBtn " onClick={deleteItem} >Delete</button>
                         </ol>
                         {
                           console.log(isActive)
@@ -100,6 +113,7 @@ useEffect(() => {
                         <ol className=' background'>
                         <button className="background listBtn " onClick={handler1}> {isActive}</button>
                      </ol>
+                     
                         }
                         
                       </ul>

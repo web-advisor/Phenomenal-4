@@ -1,7 +1,6 @@
 import React from 'react'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
-import Navbar from './Components/HomeComp/Navbar'
 import { Routes, Route } from 'react-router-dom'
 import PLogin from './Components/Login components/PLogin'
 import PSignup from './Components/Login components/PSignup'
@@ -13,14 +12,11 @@ import Footer from './Components/HomeComp/Footer';
 import AddDoctor from './Components/Login components/AddDoctor';
 import AdminDashboard from './Components/Dashboard/AdminDashboard';
 import DoctorDash from './Components/Dashboard/DoctorDash';
+import Pbooking from './Components/Dashboard/Pbooking';
 
 function App() {
-
-
   return (
     <div>
-      <Navbar />
-
       <Routes>
         <Route element={<Home />} path='/' exact="true" />
         <Route element={<PLogin />} path="/plogin" exact='true' />
@@ -31,6 +27,7 @@ function App() {
         <Route element={<PatientDash />} path="/dashboard" exact='true' />
         <Route element={<AdminDashboard />} path="/admin/dashboard" exact='true' />
         <Route element={<DoctorDash />} path="/drdashboard" exact='true' />
+        <Route element={<Pbooking />} path="/mybooking" exact='true' />
       </Routes>
       <Footer />
     </div>)

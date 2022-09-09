@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Swal from "sweetalert2";
 
 function Doctor(props) {
@@ -7,7 +6,7 @@ function Doctor(props) {
   //  e.preventDefault();
   const pToken = `JWT ${localStorage.getItem("patientToken")}`;
   try {
-    const url = `http://localhost:5000/patient/appointments/create/${props.slug}`
+    const url = `https://fast-eyrie-20747.herokuapp.com/patient/appointments/create/${props.slug}`
       const response = await fetch(url, {
           method: "POST",
           headers: {
@@ -15,9 +14,7 @@ function Doctor(props) {
             "Content-Type": "application/json",
               "Authorization": pToken
           },
-          // body: JSON.stringify(
-          //     data
-          // )
+         
       });
       const answerData = (await response.json());
       if(answerData?.apiStatus==="SUCCESS"){
@@ -36,10 +33,9 @@ function Doctor(props) {
           alert("Already have an account with the same mobile and/or Email")
         }
       console.log(answerData);
-    //  navigate('/admin/dashboard');
+ 
   } catch (error) {
-      console.log(error)
-     // alert("Already have an account with the mobile number")
+      console.log(error)   
   }
 
 
@@ -76,6 +72,7 @@ function Doctor(props) {
     </div>
 </section>
 </div>
+
   )
 }
 

@@ -1,15 +1,41 @@
 import React,{useState,useEffect} from 'react'
-
+import Navbar from "../HomeComp/Navbar"
 import axios from 'axios';
 import './Dashboard.css'
 import Doctor from './Doctor'
-
+//server : listdr nearby : line 77 : getdr.js -> isVerified =true in find function
 function PatientDash() {
   const [card, setcard] = useState([])
   const [address, setAddress] = useState("")
+
+  const deleteItem = () => {
+    console.log("deleted");
+  }
+  useEffect(() => {
+    let url = `https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/delete/${card.slug}`
+    axios.delete(url, { mode: 'no-cors', redirect: 'follow',
+  headers:{authorization :`JWT ${localStorage.getItem('adminToken')}`}
+  })
+  
+      .then((response) => {
+       
+          console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }// eslint-disable-next-line
+    ,[deleteItem])
+
+
+
+
+
+
  useEffect(() => {
-  let url = `http://localhost:5000/data/doctors/nearby?address=${address}`
-  axios.get(url, { mode: 'no-cors', redirect: 'follow' })
+  let url = `https://fast-eyrie-20747.herokuapp.com/data/doctors/nearby?address=${address}`
+  axios.get(url, { mode: 'no-cors', redirect: 'follow',
+})
 
     .then((response) => {
       const Sdata = response.data.data
@@ -19,21 +45,18 @@ function PatientDash() {
     .catch((error) => {
       console.log(error);
     })
-}
-  , [])
+}// eslint-disable-next-line
+  ,[])
 
   const changeHandler = (e)=>{
-    const {name,value} = e.target;
-    console.log(e.target.value);
     setAddress(e.target.value)
-    
   }
 
   const HandleSubmit = async (e)=>{
     e.preventDefault();
     try {
 
-      let url = `http://localhost:5000/data/doctors/nearby?address=${address}`
+      let url = `https://fast-eyrie-20747.herokuapp.com/data/doctors/nearby?address=${address}`
       axios.get(url, { mode: 'no-cors', redirect: 'follow' })
 
     .then((response) => {
@@ -46,11 +69,13 @@ function PatientDash() {
     })
     } catch (error) {
       console.log(error)
-     // alert("Already have an account with the mobile number")
+     
   }
   }
 
   return (
+    <div>
+    <Navbar role='patient'/>
     <div className="container DashboardContainer text-center">
         
     <div className=''>
@@ -74,11 +99,13 @@ function PatientDash() {
           clinic = {val.clinic}
           time1 = {val.clinicTime.openTime}
           time2 = {val.clinicTime.closeTime}
-          slug={val.slug}  
+          slug={val.slug}
+          function = {deleteItem}  
         />)
     }
 
       
+    </div>
     </div>
     </div>
   )

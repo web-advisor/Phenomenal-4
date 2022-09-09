@@ -29,6 +29,10 @@
   .background{
     background-color: #fff ;
   }
+  .midAutho{
+    color: red;
+    
+  }
   /* ---------dr list css ---------*/
   .listBtn {
     margin: 5% 0% 0% 0%;

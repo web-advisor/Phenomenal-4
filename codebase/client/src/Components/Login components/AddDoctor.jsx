@@ -6,6 +6,7 @@ import { GiNotebook } from 'react-icons/gi';
 import { FiMail } from 'react-icons/fi';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../HomeComp/Navbar'
 
 function AddDoctor() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function AddDoctor() {
     e.preventDefault();
     const adminToken = `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTY3OWEyODIwYjJmMDljZmVmYjhlZSIsInJvbGUiOiJzdXBlcmFkbWluIiwiaWF0IjoxNjYyNDE3MzE0fQ.7cokUDmBiK_2SoseXBsEYDSDxmTbeGuHz68WFRtPMsI`;
     try {
-      const response = await fetch(`http://localhost:5000/admin/manage/doctor/create`, {
+      const response = await fetch(`https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/create`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -48,60 +49,10 @@ function AddDoctor() {
         alert("Already have an account with the same mobile and/or Email")
       }
       console.log(answerData);
-      //  navigate('/admin/dashboard');
     } catch (error) {
       console.log(error)
-      // alert("Already have an account with the mobile number")
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-  //     const [imageSelected, setImageSelected] = useState('')
-
-  //     const uploadImage = async () =>{
-  //       const files = imageSelected
-  //       const data = new FormData()
-  //       data.append('file',files)
-  //       data.append('upload_preset','kaidly1w')
-  //     // setLoading(true)
-  //       const res = await fetch('https://api.cloudinary.com/v1_1/aman2000/image/upload',
-  //   {
-  //       method: 'POST',
-  //       body: data
-  //   })
-
-  //   const file = await res.json() 
-  //   setImageSelected(file.secure_url)
-  //   console.log(imageSelected);
-  // //  if(imageSelected!=='' && imageSelected!==undefined){
-  //     //  setLoading(false)
-  //   //}
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -112,30 +63,11 @@ function AddDoctor() {
         [name]: value,
       }
     })
-
-    // const SubmitHandler = (e)=>{
-    //   e.preventDefault();
-    //   if(data.password===data.cpassword)
-    //   console.log(data);
-    //   else
-    //    alert("Enter correct Password")
-
-
-    //      // props.history.push('/login')
-    //       //  axios.post('admin/manage/doctor/create',data)
-    //       //  .then((response) =>{
-    //       //         console.log(response);
-    //       //     })
-    //       //     .catch((error)=>{
-    //       //         console.log(error);
-    //       //     })
-
-
-
   }
   return (
+    <div> <Navbar role='admin'/>
     <div className="container form-container text-center">
-
+   
       <div>
         <h1 className='loginHeader'>Add A Doctor</h1>
         <form className="form pt-5" onSubmit={SubmitHandler} >
@@ -192,28 +124,14 @@ function AddDoctor() {
           <div className="input_field p-3">
             <label><GiNotebook /></label>
             <input type="number" required value={data.fees} name="fees" id='fees' placeholder="Enter Fee Amount" autoComplete="off" onChange={changeHandler} />
-          </div>
-
-
-
-
-          <br />
+          </div><br />
           <button type="submit" className="btn btn-primary"  >Submit</button>
-
 
         </form>
       </div>
     </div>
+  </div>
   )
 }
 
 export default AddDoctor
-
-
-
-
-// <div className= "input_field p-3">
-//         <label><AiOutlineFileImage/></label>
-//         <input type="file"  value={data.profilePic} name="profilePic" id='profilePic'  placeholder="" autoComplete="off"
-//         onChange={changeHandler}/>
-//         </div>

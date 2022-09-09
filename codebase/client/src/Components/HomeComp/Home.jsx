@@ -1,9 +1,11 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import Navbar from '../HomeComp/Navbar'
 
 function Home() {
   return (
     <div>
+    <Navbar />
     <section id="header" className="d-flex align-item-centre">
          <div className="container-fluid">
                  <div className="row">

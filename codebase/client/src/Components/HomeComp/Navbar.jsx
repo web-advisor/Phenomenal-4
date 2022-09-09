@@ -1,53 +1,16 @@
-import React, { useState,useEffect } from 'react'
+import React from 'react'
 import { NavLink,useNavigate } from 'react-router-dom'
-import { status } from '../Login components/PSignup';
-import {Pstatus} from '../Login components/PLogin'
-//let newStatus = 1;
+function Navbar(props) {
+  const navigate = useNavigate();  
+  const name = localStorage.getItem("name")
 
-function Navbar() {
- 
-  const navigate = useNavigate();
-  const [isdrLogin, setisdrLogin] = useState(0)
- // const [ispLogin, setPlogin] = useState(0)
-  const [isadminLogin, setAdminLogin] = useState(0)
-  
-const name = localStorage.getItem("name")
-
-
-  const [ispLogin, setPlogin] = useState(localStorage.getItem('patientToken'));
-  useEffect(() => {
-    function checkUserData() {
-      const item = JSON.parse(localStorage.getItem("patientToken"));
-
-      if (item) {
-        setPlogin(item);
-      }
-    }
-
-    window.addEventListener("storage", () => {
-      checkUserData();
-    });
-
-    return () => {
-      window.removeEventListener("storage", checkUserData);
-    };
-  }, [localStorage.getItem("patientToken")]);
-
-
-  
-  console.log()
-  const logOut = ()=>{
-    setAdminLogin(0);
-    setPlogin(0);
-    setisdrLogin(0); 
-    localStorage.clear();
-   // newStatus=0
+  const logOut = ()=>{ 
+    localStorage.removeItem(`${props.role}Token`);
+    localStorage.removeItem('name')
     navigate('/');
-
   }
 
- if(ispLogin && isadminLogin===0 && isdrLogin===0 ){
-    
+  if(props && props.role==='patient'){  
   return(
     <div>
     <div className="container-fluid sticky-top nav_bg nav_bg1">
@@ -55,7 +18,7 @@ const name = localStorage.getItem("name")
         <div className="col-10 mx-auto">
 <nav className="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
 <div className="container-fluid">
-  <button exact='true' className="navbar-brand logobutton" >Global彡Hospital</button>
+  <button exact='true' className="navbar-brand logobutton" >Direct2Clinic彡</button>
   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -69,7 +32,7 @@ const name = localStorage.getItem("name")
              <NavLink className={({isActive}) => (isActive ? "active-style nav-link" : 'nav-link')}  to= '/dashboard' >Add Appointment</NavLink>
            </li>
            <li className="nav-item">
-             <NavLink className={({isActive}) => (isActive ? "active-style nav-link" : 'nav-link')}  to= '/dashboard' >My Bookings</NavLink>
+             <NavLink className={({isActive}) => (isActive ? "active-style nav-link" : 'nav-link')}  to= '/mybooking' >My Booking</NavLink>
            </li>
              <li className="nav-item">
              <button className= 'nav-link'  onClick={logOut} >Logout</button>
@@ -85,7 +48,7 @@ const name = localStorage.getItem("name")
   )
  }
 
-else if( !ispLogin && isadminLogin===0 && isdrLogin===1){
+  else if(props && props.role==='doctor'){
   return(
     <div className="container-fluid sticky-top nav_bg nav_bg1">
     <div className="row">
@@ -93,7 +56,7 @@ else if( !ispLogin && isadminLogin===0 && isdrLogin===1){
         
 <nav className="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
 <div className="container-fluid">
-  <button exact='true' className="navbar-brand logobutton" >Global彡Hospital</button>
+  <button exact='true' className="navbar-brand logobutton" >Direct2Clinic彡</button>
   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -117,8 +80,7 @@ else if( !ispLogin && isadminLogin===0 && isdrLogin===1){
 </div>
   )
 }
-else if( !ispLogin && isadminLogin===1 && isdrLogin===0){
-  
+  else if(props && props.role==='admin'){
   return(
     <div className="container-fluid sticky-top nav_bg nav_bg1">
         <div className="row">
@@ -126,7 +88,7 @@ else if( !ispLogin && isadminLogin===1 && isdrLogin===0){
 
     <nav className="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
     <div className="container-fluid">
-    <button exact='true' className="navbar-brand logobutton" >Global彡Hospital</button>
+    <button exact='true' className="navbar-brand logobutton" >Direct2Clinic彡</button>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -154,8 +116,7 @@ else if( !ispLogin && isadminLogin===1 && isdrLogin===0){
 </div>
   )
 }
-else if(!ispLogin && isadminLogin===0 && isdrLogin===0){
-  
+  else {
   return(
     <div className="container-fluid sticky-top nav_bg nav_bg1">
     <div className="row">
@@ -163,7 +124,7 @@ else if(!ispLogin && isadminLogin===0 && isdrLogin===0){
         
 <nav className="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
 <div className="container-fluid">
-  <button exact='true' className="navbar-brand logobutton" >Global彡Hospital</button>
+  <button exact='true' className="navbar-brand logobutton" >Direct2Clinic彡</button>
   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -188,21 +149,7 @@ else if(!ispLogin && isadminLogin===0 && isdrLogin===0){
 </div>
 </div>
 </div>
-  )
-}
-else{
-  return(
-    <div>Error</div>
-  )
-}
-
-
-
-
-
-
-
+  )}
 }
 
 export default Navbar
-//export {newStatus}

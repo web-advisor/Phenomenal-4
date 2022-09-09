@@ -4,7 +4,7 @@ import { FiMail } from 'react-icons/fi';
 import { AiOutlineMobile } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom'
-//import {newStatus} from '../HomeComp/Navbar'
+import Navbar from '../HomeComp/Navbar'
 
 let status = 0; 
 function PSignup(props) {
@@ -17,10 +17,6 @@ function PSignup(props) {
         password:"",
     }
 )
-//useEffect(() => {
-//  status=newStatus
-  // eslint-disable-next-line
-//}, [newStatus])
 const changeHandler = (e)=>{
   const {name,value} = e.target;
   setdata((preValue)=>{
@@ -35,7 +31,7 @@ const changeHandler = (e)=>{
 const SubmitHandler = async (e)=>{
   e.preventDefault();
 try {
-    const response = await fetch(`http://localhost:5000/auth/signup/patient`, {
+    const response = await fetch(`https://fast-eyrie-20747.herokuapp.com/auth/signup/patient`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -56,11 +52,11 @@ try {
     console.log(answerData);
 } catch (error) {
     console.log(error)
-   // alert("Already have an account with the mobile number")
 }
 }
 
   return (
+<div><Navbar/>
     <div className="container form-container text-center">
         
     <div>
@@ -86,17 +82,12 @@ try {
         <label><RiLockPasswordLine/></label>
         <input type="password" value={data.password} name="password" id='password' placeholder="Enter your password" autoComplete="off" required onChange={changeHandler} />
         </div>
-
-        
-       
-
         <br/>
     <button type="submit"  className="btn btn-primary"  >Submit</button>
 
-
   </form>
     </div>
-    </div>
+    </div> </div>
   )
 }
 
