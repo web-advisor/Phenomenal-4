@@ -3,7 +3,7 @@ const { response } = require("../../utils/response");
 const Appointment = require("../../models/appointmentSchema");
 const { checkNotNull, checkAccess } = require("../../utils/check");
 const Doctor = require("../../models/doctorSchema");
-const { timing, computeMinutes, computeAppointment } = require("../../utils/time");
+const { timing, computeCurrMinutes, computeAppointment } = require("../../utils/time");
 
 const listAppointments = async (req, res, next) => {
     if (checkAccess(req.user, "listAppointments")) {
@@ -51,20 +51,26 @@ const createAppointment = async (req, res, next) => {
             try {
                 const doctorData = await Doctor.findOne({ slug });
                 if (doctorData) {
-                    const curr = computeMinutes();
+                    const curr = computeCurrMinutes();
                     const lower = timing(doctorData?.clinicTime?.openTime);
                     const upper = timing(doctorData?.clinicTime?.closeTime);
-                    const latest = timing(doctorData?.lastAppointment);
+                    const latest = doctorData?.lastAppointment;
                     const appointmentTime = computeAppointment(curr, lower, upper, latest);
-                    console.log(curr, lower, upper, latest, appointmentTime);
                     var max = 0;
-                    const maxToken = await Appointment.find({ doctorId: doctorData?._id }).sort({ tokenNo: -1 }).limit(1);
+                    const maxToken = await Appointment.find({ doctorId: doctorData?._id }).sort({ startTime: -1 }).limit(1);
                     if (maxToken.length > 0) max = maxToken[0].tokenNo;
+                    console.log(appointmentTime, max+1);
                     const newAppointment = new Appointment({
                         doctorId: doctorData._id,
+                        doctorName : doctorData?.name,
+                        clinicName : doctorData?.clinic,
+                        address: doctorData?.address,
+                        location: doctorData?.location,
+                        patientName : req.user.name,
                         patientId: req.user._id,
                         tokenNo: max + 1,
-                        startTime: appointmentTime
+                        modeOfBooking : "Online",
+                        startTime: appointmentTime,
                     });
                     await Doctor.updateOne({ slug }, { $set: { lastAppointment: appointmentTime } });
                     return next(response(200, "", await newAppointment.save()));
@@ -74,21 +80,27 @@ const createAppointment = async (req, res, next) => {
             } catch (error) {
                 return next(response(500, error.message));
             }
-
         } else {
             // Clinic Staff Booking Appointment
-            const { startTime } = req.body;
-            if (checkNotNull(startTime)) {
+            const { startTime, patientName } = req.body;
+            if (checkNotNull(startTime) && checkNotNull(patientName)) {
+                startTime = computeCurrMinutes(startTime);
                 try {
                     var max = 0;
-                    const maxToken = await Appointment.find({ doctorId: doctorData?._id }).sort({ tokenNo: -1 }).limit(1);
+                    const maxToken = await Appointment.find({ doctorId: doctorData?._id }).sort({ startTime: -1 }).limit(1);
                     if (maxToken.length > 0) max = maxToken[0].tokenNo;
                     const newAppointment = new Appointment({
                         doctorId: req.user._id,
                         tokenNo: max + 1,
-                        startTime
+                        startTime,
+                        doctorName : req.user?.name,
+                        clinicName : req.user?.clinic,
+                        address: req.user?.address,
+                        location: req.user?.location,
+                        patientName,
+                        modeOfBooking : "Offline",
                     });
-                    await Doctor.updateOne({ slug }, { $set: { lastAppointment: appointmentTime } });
+                    await Doctor.updateOne({ slug }, { $set: { lastAppointment: startTime } });
                     return next(response(200, "", await newAppointment.save()));
                 } catch (error) {
                     return next(response(500, error.message));

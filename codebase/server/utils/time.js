@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 const timing = (timestring) => {
     let hours = "";
     let minutes = "";
@@ -15,47 +17,59 @@ const timing = (timestring) => {
         }
     }
 
-    if (!found) return 0;
+    if (!found) return convertToEpoch(0);
     else {
-        let h = parseInt(hours);
-        let m = parseInt(minutes);
-        const time = h * 60 + m;
-        return time;
+        return convertToEpoch(hours + ":" + minutes);
     }
 }
 
-const computeMinutes = () => {
-    var now = new Date();
-    var hours = now.getHours();
-    var minutes = now.getMinutes();
-    const time = hours * 60 + minutes;
-    return time;
+
+const convertToEpoch = (time, date = 0) => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0') + date;
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    var completeTime = today + " " + time + 330;
+    var format = "M/D/YYYY H:mm";
+    const epoch = moment(completeTime, format).valueOf();
+    return parseInt(epoch);
 }
 
+
+const computeCurrMinutes = () => {
+    return Date.now();
+}
+// 1662663220540 1662701400000 1662723000000 1662720900000
 
 const computeAppointment = (curr, lower, upper, latest) => {
-    var time = 0;
-    if (curr < lower) {
-        time = lower;
-    } else if (curr > upper) {
-        time = lower;
+    if (latest.length < 6) {
+        latest = timing(latest);
     } else {
-        if (curr + 10 < latest + 15)
-            time = latest + 15;
-        else    
-            time = curr + 10;
+        latest = parseInt(latest);
     }
-    console.log(time);
-    var timestring = "";
-    let min = time % 60 < 10 ? "0" + (time % 60) : time % 60;
-    let hour = (time - min) / 60;
-    timestring = hour + ":" + min;
-    return timestring;
+
+    var time = 0;
+    if (curr + (10 * 60 * 1000) > upper) {
+        lower = lower + (24 * 60 * 60 * 1000);
+        time = latest >= lower ? latest + (15 * 60 * 1000) : lower;
+    } else if (curr < lower) {
+        time = latest >= lower ? latest + (15 * 60 * 1000) : lower;
+    } else {
+        if (curr + (10 * 60 * 1000) < latest + (15 * 60 * 1000))
+            time = latest + (15 * 60 * 1000);
+        else
+            time = curr + (10 * 60 * 1000);
+    }
+    console.log(curr, lower, upper, latest);
+    return time;
 }
 
 
 module.exports = {
     timing,
-    computeMinutes,
-    computeAppointment
+    computeCurrMinutes,
+    computeAppointment,
+    convertToEpoch
 }
