@@ -12,7 +12,7 @@ function PatientDash() {
     console.log("deleted");
   }
   useEffect(() => {
-    let url = `https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/delete/${card.slug}`
+    let url = `http://13.232.26.236:5000/admin/manage/doctor/delete/${card.slug}`
     axios.delete(url, { mode: 'no-cors', redirect: 'follow',
   headers:{authorization :`JWT ${localStorage.getItem('adminToken')}`}
   })
@@ -33,7 +33,7 @@ function PatientDash() {
 
 
  useEffect(() => {
-  let url = `https://fast-eyrie-20747.herokuapp.com/data/doctors/nearby?address=${address}`
+  let url = `http://13.232.26.236:5000/data/doctors/nearby?address=${address}`
   axios.get(url, { mode: 'no-cors', redirect: 'follow',
 })
 
@@ -56,7 +56,7 @@ function PatientDash() {
     e.preventDefault();
     try {
 
-      let url = `https://fast-eyrie-20747.herokuapp.com/data/doctors/nearby?address=${address}`
+      let url = `http://13.232.26.236:5000/data/doctors/nearby?address=${address}`
       axios.get(url, { mode: 'no-cors', redirect: 'follow' })
 
     .then((response) => {

@@ -6,7 +6,7 @@ function DrList(props) {
   const [isActive, setactive] = useState("a")
   
   const deleteItem = () => {
-    let url = `https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/delete/${props.slug}`
+    let url = `http://13.232.26.236:5000/admin/manage/doctor/delete/${props.slug}`
       axios.delete(url, { mode: 'no-cors', redirect: 'follow',
     headers:{authorization :`JWT ${localStorage.getItem('adminToken')}`}
     }) 
@@ -32,7 +32,7 @@ useEffect(() => {
     e.preventDefault();
   const adminToken = `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTY3OWEyODIwYjJmMDljZmVmYjhlZSIsInJvbGUiOiJzdXBlcmFkbWluIiwiaWF0IjoxNjYyNDE3MzE0fQ.7cokUDmBiK_2SoseXBsEYDSDxmTbeGuHz68WFRtPMsI`;
   try {
-      const response = await fetch(`https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/verify/${props.slug}`, {
+      const response = await fetch(`http://13.232.26.236:5000/admin/manage/doctor/verify/${props.slug}`, {
           method: "PATCH",
           headers: {
               Accept: "application/json",
@@ -57,7 +57,7 @@ useEffect(() => {
     e.preventDefault();
   const adminToken = `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTY3OWEyODIwYjJmMDljZmVmYjhlZSIsInJvbGUiOiJzdXBlcmFkbWluIiwiaWF0IjoxNjYyNDE3MzE0fQ.7cokUDmBiK_2SoseXBsEYDSDxmTbeGuHz68WFRtPMsI`;
   try {
-      const response = await fetch(`https://fast-eyrie-20747.herokuapp.com/admin/manage/doctor/remove/${props.slug}`, {
+      const response = await fetch(`http://13.232.26.236:5000/admin/manage/doctor/remove/${props.slug}`, {
           method: "PATCH",
           headers: {
               Accept: "application/json",

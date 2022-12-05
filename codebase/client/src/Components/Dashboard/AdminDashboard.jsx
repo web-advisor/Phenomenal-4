@@ -10,7 +10,7 @@ function AdminDashboard() {
  
  useEffect(() => {
  
-  let url = `https://fast-eyrie-20747.herokuapp.com/data/doctors/list`
+  let url = `http://13.232.26.236:5000/data/doctors/list`
   axios.get(url, { mode: 'no-cors', redirect: 'follow' })
 
     .then((response) => {

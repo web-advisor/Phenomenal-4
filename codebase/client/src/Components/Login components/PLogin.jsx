@@ -4,7 +4,7 @@ import Navbar from '../HomeComp/Navbar'
 let Pstatus=0;
 
 function PLogin() {
-  const url ="https://fast-eyrie-20747.herokuapp.com/auth/login/patient"   
+  const url ="http://13.232.26.236:5000/auth/login/patient"   
   
   return (
     <div className='fullContainer'>
