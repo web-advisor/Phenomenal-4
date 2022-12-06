@@ -12,7 +12,7 @@ function AppointList(props) {
       
         const drToken = `JWT ${localStorage.getItem('doctorToken')}`;
         try {
-          const response = await fetch(`http://13.232.26.236:5000/doctor/appointments/update/${props.key2}`, {
+          const response = await fetch(`https://phenomenal-doctors.onrender.com/doctor/appointments/update/${props.key2}`, {
             method: "PATCH",
             headers: {
               Accept: "application/json",
@@ -40,7 +40,7 @@ function AppointList(props) {
       
         const drToken = `JWT ${localStorage.getItem('doctorToken')}`;
         try {
-          const response = await fetch(`http://13.232.26.236:5000/doctor/appointments/update/${props.key2}`, {
+          const response = await fetch(`https://phenomenal-doctors.onrender.com/doctor/appointments/update/${props.key2}`, {
             method: "PATCH",
             headers: {
               Accept: "application/json",

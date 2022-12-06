@@ -31,7 +31,7 @@ function PSignup(props) {
   const SubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://13.232.26.236:5000/auth/signup/patient`, {
+      const response = await fetch(`https://phenomenal-doctors.onrender.com/auth/signup/patient`, {
         method: "POST",
         headers: {
           Accept: "application/json",

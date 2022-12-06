@@ -2,7 +2,7 @@ import React from 'react'
 import CommonForm from './CommonForm'
 import Navbar from '../HomeComp/Navbar'
 function Drlogin() {
-  const url = "http://13.232.26.236:5000/auth/login/doctor"
+  const url = "https://phenomenal-doctors.onrender.com/auth/login/doctor"
   return (
     <div className='fullContainer'>
     <Navbar/>

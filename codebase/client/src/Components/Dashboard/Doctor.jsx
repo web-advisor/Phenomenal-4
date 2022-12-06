@@ -6,7 +6,7 @@ function Doctor(props) {
     //  e.preventDefault();
     const pToken = `JWT ${localStorage.getItem("patientToken")}`;
     try {
-      const url = `http://13.232.26.236:5000/patient/appointments/create/${props.slug}`
+      const url = `https://phenomenal-doctors.onrender.com/patient/appointments/create/${props.slug}`
       const response = await fetch(url, {
         method: "POST",
         headers: {

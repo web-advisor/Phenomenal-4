@@ -30,7 +30,7 @@ function AddDoctor() {
     e.preventDefault();
     const adminToken = `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTY3OWEyODIwYjJmMDljZmVmYjhlZSIsInJvbGUiOiJzdXBlcmFkbWluIiwiaWF0IjoxNjYyNDE3MzE0fQ.7cokUDmBiK_2SoseXBsEYDSDxmTbeGuHz68WFRtPMsI`;
     try {
-      const response = await fetch(`http://13.232.26.236:5000/admin/manage/doctor/create`, {
+      const response = await fetch(`https://phenomenal-doctors.onrender.com/admin/manage/doctor/create`, {
         method: "POST",
         headers: {
           Accept: "application/json",

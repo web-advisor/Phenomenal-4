@@ -6,7 +6,7 @@ function DrList(props) {
   const [isActive, setactive] = useState("a")
   
   const deleteItem = () => {
-    let url = `http://13.232.26.236:5000/admin/manage/doctor/delete/${props.slug}`
+    let url = `https://phenomenal-doctors.onrender.com/admin/manage/doctor/delete/${props.slug}`
       axios.delete(url, { mode: 'no-cors', redirect: 'follow',
     headers:{authorization :`JWT ${localStorage.getItem('adminToken')}`}
     }) 

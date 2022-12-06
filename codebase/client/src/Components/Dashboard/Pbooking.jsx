@@ -5,7 +5,7 @@ import axios from 'axios'
 function Pbooking() {
   const [card, setcard] = useState([])
   useEffect(() => {
-    let url = `http://13.232.26.236:5000/patient/appointments/list`
+    let url = `https://phenomenal-doctors.onrender.com/patient/appointments/list`
     axios.get(url, {
       mode: 'no-cors', redirect: 'follow',
       headers: { authorization: `JWT ${localStorage.getItem('patientToken')}` }

@@ -5,7 +5,7 @@ import axios from 'axios'
 function DoctorDash() {
   const [card, setcard] = useState([])
   useEffect(() => {
-    let url = `http://13.232.26.236:5000/doctor/appointments/list`
+    let url = `https://phenomenal-doctors.onrender.com/doctor/appointments/list`
     axios.get(url, { mode: 'no-cors', redirect: 'follow',
   headers:{authorization :`JWT ${localStorage.getItem('doctorToken')}`}
   })

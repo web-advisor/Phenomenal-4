@@ -10,7 +10,7 @@ function AdminDashboard() {
  
  useEffect(() => {
  
-  let url = `http://13.232.26.236:5000/data/doctors/list`
+  let url = `https://phenomenal-doctors.onrender.com/data/doctors/list`
   axios.get(url, { mode: 'no-cors', redirect: 'follow' })
 
     .then((response) => {
