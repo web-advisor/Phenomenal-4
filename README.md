@@ -12,6 +12,6 @@ This repo contains Veersa Hackathon solution for the team HealthTechies for the 
 
 ## Project Links:
 - [Hosted Website](https://phenomenal-4.web.app)
-- [Deployed Server](https://fast-eyrie-20747.herokuapp.com)
+- [Deployed Server](https://phenomenal-doctors.onrender.com)
 - [Database Structure](https://whimsical.com/hospital-appointment-booking-4MkrXpQ7stRSHtAKwKV6Cu)
 - [Website Design](https://github.com/web-advisor/Phenomenal-4/tree/master/Design)
